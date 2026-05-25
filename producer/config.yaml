@@ -1,6 +1,6 @@
 port: "8080"
 port_grpc: "9094"
-grpc: true
+grpc: false
 
 brokers:
   - "kafka:29092"

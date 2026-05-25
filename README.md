@@ -6,6 +6,7 @@
 [![Grafana](https://img.shields.io/badge/Grafana-621?logo=grafana)](https://grafana.com/)
 [![Docker](https://img.shields.io/badge/Docker-purple?logo=docker)](https://www.docker.com/)
 [![Swagger](https://img.shields.io/badge/Swagger-191?logo=swagger)](https://swagger.io/)
+[![Kafka](https://img.shields.io/badge/Kafka-white)](https://kafka.apache.org/)
 [![gRPC](https://img.shields.io/badge/gRPC-white)](https://grpc.io/)
 [![REST_API](https://img.shields.io/badge/REST_API-white)](https://en.wikipedia.org/wiki/REST)
 
@@ -20,7 +21,7 @@ restrictions, so it was all up to me
 The service has three-layer architecture **handler → service → storage**. Service can work with gRPC or REST depending
 on specified configuration. Kafka was selected as broker, because it's the most popular and powerful broker
 
-The Swagger documentation for REST, benchmark, Kafdrop, Prometheus metrics with Grafana 
+The Swagger documentation for REST, slog logger, benchmark, Kafdrop, Prometheus metrics with Grafana 
 visualization are provided. Main parts has Unit-tests
 
 To test the service by yourself an additional producer service was also created. The producer is a simple API with only
@@ -305,6 +306,8 @@ docker volume prune -a -f
 
 ## gRPC mode
 
+Make sure to set GRPC and PRODUCER_GRPC to "true"
+
 Use this command via terminal
 
 ### See running services
@@ -361,7 +364,51 @@ grpcurl -plaintext -d '{"search": "pants", "user": "198.51.100.14"}' localhost:9
 
 ## REST mode
 
+Make sure to set GRPC and PRODUCER_GRPC to "false"
+
 Swagger would be available at http://localhost:8082
+
+Or use this command via terminal
+
+### Get top N
+
+Specify the N instead of 5
+
+```bash
+curl -X GET "http://localhost:8080/top-searches/get/5"
+```
+
+### Get stoplist
+
+```bash
+curl -X GET "http://localhost:8080/stoplist/get"
+```
+
+### Add word to stoplist
+
+Specify the word instead of "pants"
+
+```bash
+curl -X POST "http://localhost:8080/stoplist/add/pants"
+```
+
+### Remove word from stoplist
+
+Specify the word instead of "pants"
+
+```bash
+curl -X DELETE "http://localhost:8080/stoplist/remove/pants"
+```
+
+### Search request
+
+If you are running the producer
+
+Specify the search and user instead of "pants" and "198.51.100.14"
+
+```bash
+curl -X POST "http://localhost:8081/search" -H "Content-Type: application/json" -d '{"search": "pants", "user": "198.51.100.14"}'
+```
 
 
 ## Metrics

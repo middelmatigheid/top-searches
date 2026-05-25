@@ -41,6 +41,8 @@ func GetConfig(path string) (*Config, error) {
 	}
 	if grpc := os.Getenv("GRPC"); grpc == "true" {
 		config.GRPC = true
+	} else if grpc != "" {
+		config.GRPC = false
 	}
 	if timespan := os.Getenv("TIMESPAN"); timespan != "" {
 		time, err := strconv.ParseInt(timespan, 10, 64)

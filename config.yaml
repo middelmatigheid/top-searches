@@ -1,6 +1,6 @@
 port: "8080"
 port_grpc: "9091"
-grpc: true
+grpc: false
 
 # Specify params below in seconds
 timespan: 300

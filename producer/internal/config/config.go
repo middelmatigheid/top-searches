@@ -38,6 +38,8 @@ func GetConfig(path string) (*Config, error) {
 	}
 	if grpc := os.Getenv("PRODUCER_GRPC"); grpc == "true" {
 		config.GRPC = true
+	} else if grpc != "" {
+		config.GRPC = false
 	}
 	if brokers := os.Getenv("PRODUCER_BROKERS"); brokers != "" {
 		config.Brokers = strings.Split(brokers, ",")

@@ -37,6 +37,8 @@ services:
       - "9091:9091"
     environment:
       - PORT=8080
+      - PORT_GRPC=9091
+      - GRPC=false
       - TIMESPAN=300
       - BUCKET_TIMESPAN=10
       - COOLDOWN=5
@@ -63,6 +65,8 @@ services:
       - "9094:9094"
     environment:
       - PRODUCER_PORT=8081
+      - PRODUCER_PORT_GRPC=9094
+      - PRODUCER_GRPC=false
       - PRODUCER_BROKERS=kafka:29092 
       - PRODUCER_TOPIC=searches
       - PRODUCER_LOG_FILE=/var/log/producer/app.log
