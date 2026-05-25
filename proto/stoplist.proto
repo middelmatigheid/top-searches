@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package stoplist;
 
-option go_package = "github.com/middelmatigheid/wb-top-searches/proto;proto";
+option go_package = "github.com/middelmatigheid/top-searches/proto;proto";
 
 // Service for managing stoplist
 service Stoplist{
