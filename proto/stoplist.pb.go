@@ -408,7 +408,7 @@ const file_proto_stoplist_proto_rawDesc = "" +
 	"\x03Add\x12\x14.stoplist.AddRequest\x1a\x15.stoplist.AddResponse\x12;\n" +
 	"\x06Remove\x12\x17.stoplist.RemoveRequest\x1a\x18.stoplist.RemoveResponse\x12J\n" +
 	"\vGetStoplist\x12\x1c.stoplist.GetStoplistRequest\x1a\x1d.stoplist.GetStoplistResponse\x12A\n" +
-	"\bContains\x12\x19.stoplist.ContainsRequest\x1a\x1a.stoplist.ContainsResponseB8Z6github.com/middelmatigheid/wb-top-searches/proto;protob\x06proto3"
+	"\bContains\x12\x19.stoplist.ContainsRequest\x1a\x1a.stoplist.ContainsResponseB8Z6github.com/middelmatigheid/top-searches/proto;protob\x06proto3"
 
 var (
 	file_proto_stoplist_proto_rawDescOnce sync.Once
