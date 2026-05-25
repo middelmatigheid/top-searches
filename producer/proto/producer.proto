@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package producer;
 
-option go_package = "github.com/middelmatigheid/wb-top-searches/proto;proto";
+option go_package = "github.com/middelmatigheid/top-searches/proto;proto";
 
 import "google/protobuf/timestamp.proto";
 
