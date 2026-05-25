@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package producer;
+
+option go_package = "github.com/middelmatigheid/wb-top-searches/proto;proto";
+
+import "google/protobuf/timestamp.proto";
+
+// Service for managing the producer
+service Producer {
+    // Send search to the broker
+    rpc Search (SendSearchRequest) returns (SendSearchResponse);
+}
+
+message SendSearchRequest {
+    string search = 1;
+    string user = 2;
+    google.protobuf.Timestamp timestamp = 3; 
+}
+
+message SendSearchResponse {
+    string message = 1;
+}

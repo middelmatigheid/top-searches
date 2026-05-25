@@ -1,0 +1,137 @@
+services:
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:9093'
+      
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT'
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,PLAINTEXT_INTERNAL://0.0.0.0:29092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT_INTERNAL'
+      
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - network
+    restart: unless-stopped
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+      - "9091:9091"
+    environment:
+      - PORT=8080
+      - TIMESPAN=300
+      - BUCKET_TIMESPAN=10
+      - COOLDOWN=5
+      - BROKERS=kafka:29092 
+      - TOPIC=searches
+      - LOG_FILE=/var/log/server/app.log
+    volumes:
+      - server_logs:/var/log/server
+    networks:
+      - network
+    restart: unless-stopped
+
+  producer:
+    build:
+      context: producer
+      dockerfile: Dockerfile
+    container_name: producer
+    profiles:
+      - producer
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8081"
+      - "9094:9094"
+    environment:
+      - PRODUCER_PORT=8081
+      - PRODUCER_BROKERS=kafka:29092 
+      - PRODUCER_TOPIC=searches
+      - PRODUCER_LOG_FILE=/var/log/producer/app.log
+    volumes:
+      - producer_logs:/var/log/producer
+    networks:
+      - network
+    restart: unless-stopped
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    container_name: swagger-ui
+    profiles:
+      - swagger-ui
+    ports:
+      - "8082:8080"
+    environment:
+      URLS: "[{ url: 'docs/server.json', name: 'Server API (Port 8080)' }, { url: 'docs/producer.json', name: 'Producer API (Port 8081)' }]"
+    volumes:
+      - ./docs/swagger.json:/usr/share/nginx/html/docs/server.json
+      - ./producer/docs/swagger.json:/usr/share/nginx/html/docs/producer.json
+    networks:
+      - network
+    restart: unless-stopped
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: kafdrop
+    profiles:
+      - kafdrop
+    depends_on:
+      - kafka
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092  
+      JVM_OPTS: "-Xms16M -Xmx48M"
+    networks:
+      - network
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - network
+    restart: unless-stopped
+
+volumes:
+  server_logs: 
+  producer_logs: 
+
+networks:
+  network:
+    driver: bridge

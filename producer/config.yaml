@@ -1,0 +1,26 @@
+port: "8080"
+port_grpc: "9094"
+grpc: true
+
+brokers:
+  - "kafka:29092"
+topic: "searches"
+
+log_file: "/var/log/producer/app.log"
+
+auto_sender: true
+
+searches:
+  - "books"
+  - "knife"
+  - "phone"
+  - "backpack"
+  - "soap"
+  - "pants"
+  - "gun"
+
+users:
+  - "alex"
+  - "alice"
+  - "peter"
+  - "ben"

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package searches;
+
+option go_package = "github.com/middelmatigheid/top-searches/proto;proto";
+
+// Service for managing top searches
+service Searches {
+    // Get N top searches
+    rpc GetTopN (GetTopNRequest) returns (GetTopNResponse);
+}
+
+message GetTopNRequest {
+    int64 n = 1;
+}
+
+message GetTopNResponse {
+    repeated TopSearch top_searches = 1;
+}
+
+message TopSearch {
+    string search = 1;
+    int64 count = 2;
+    string last_searched = 3; // ISO 8601
+}

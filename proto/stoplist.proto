@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package stoplist;
+
+option go_package = "github.com/middelmatigheid/wb-top-searches/proto;proto";
+
+// Service for managing stoplist
+service Stoplist{
+    // Add new word to the stoplist
+    rpc Add (AddRequest) returns (AddResponse);
+    
+    // Remove word from the stoplist
+    rpc Remove (RemoveRequest) returns (RemoveResponse);
+    
+    // Get stoplist
+    rpc GetStoplist (GetStoplistRequest) returns (GetStoplistResponse);
+    
+    // Check if the stoplist contains a word
+    rpc Contains (ContainsRequest) returns (ContainsResponse);
+}
+
+message AddRequest {
+    string word = 1;
+}
+
+message AddResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+
+message RemoveRequest {
+    string word = 1;
+}
+
+message RemoveResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetStoplistRequest {}
+
+message GetStoplistResponse {
+    repeated string words = 1;
+}
+
+message ContainsRequest {
+    string word = 1;
+}
+
+message ContainsResponse {
+    bool contains = 1;
+}

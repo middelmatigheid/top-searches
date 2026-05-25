@@ -1,0 +1,193 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Top Searches API",
+    "description": "API for managing top searches with a stoplist",
+    "version": "1.0",
+    "contact": {
+      "tg": "@middelmatigheid",
+      "github": "@middelmatigheid"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/top-searches/get/{n}": {
+      "get": {
+        "summary": "Get top N most popular searches",
+        "description": "Returns array of N most popular searches in a timespan",
+        "tags": ["searches"],
+        "parameters": [
+            {
+                "name": "n",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Amount of searches in the top",
+                "example": 10
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Top searches processed successfully"
+                },
+                "top-searches": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/TopSearch"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Error while processing top searches"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stoplist/get": {
+      "get": {
+        "summary": "Get stoplist",
+        "description": "Return all words that are currently in the stoplist",
+        "tags": ["stoplist"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Stoplist processed successfully"
+                },
+                "stoplist": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["gun", "knife", "spam"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stoplist/add/{word}": {
+      "post": {
+        "summary": "Add word to stoplist",
+        "description": "Adds word to the stoplist, so it won't be shown in top searches anymore",
+        "tags": ["stoplist"],
+        "parameters": [
+          {
+            "name": "word",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "example": "drug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Word was added"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stoplist/remove/{word}": {
+      "delete": {
+        "summary": "Remove word from stoplist",
+        "description": "Removes word from the stoplist, so it can be shown in top searches again",
+        "tags": ["stoplist"],
+        "parameters": [
+          {
+            "name": "word",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "example": "knife"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Word was removed"
+                },
+                "word": {
+                  "type": "string",
+                  "example": "knife"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TopSearch": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "example": "Books"
+        },
+        "count": {
+          "type": "integer",
+          "example": 42
+        },
+        "last_searched": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2026-05-23T15:04:05Z"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "searches",
+      "description": "Operations with top searches"
+    },
+    {
+      "name": "stoplist",
+      "description": "Managing the stoplist"
+    }
+  ]
+}

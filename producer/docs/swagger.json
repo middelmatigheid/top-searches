@@ -1,0 +1,64 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Producer API",
+    "description": "Simple API for creating search messages to broker",
+    "version": "1.0",
+    "contact": {
+      "tg": "@middelmatigheid",
+      "github": "@middelmatigheid"
+    }
+  },
+  "host": "localhost:8081",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/search": {
+      "post": {
+        "summary": "Add search message",
+        "description": "Adds new search message to broker",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.Search"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Search message sent"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "models.Search": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "example": "books"
+        },
+        "user": {
+          "type": "string",
+          "example": "192.168.1.1"
+        }
+      }
+    }
+  }
+}

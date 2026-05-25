@@ -1,0 +1,18 @@
+port: "8080"
+port_grpc: "9091"
+grpc: true
+
+# Specify params below in seconds
+timespan: 300
+bucket_timespan: 10
+cooldown: 5
+
+brokers:
+  - "kafka:29092"
+topic: "searches"
+
+log_file: "/var/log/server/app.log"
+
+stoplist:
+  - "gun"
+  - "knife"
