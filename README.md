@@ -422,8 +422,6 @@ To run Unit-tests use
 go test -v ./...
 ```
 
-## Proto made with
-
 ---
 
 # Project structure
