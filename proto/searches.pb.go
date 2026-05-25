@@ -183,7 +183,7 @@ const file_proto_searches_proto_rawDesc = "" +
 	"\x05count\x18\x02 \x01(\x03R\x05count\x12#\n" +
 	"\rlast_searched\x18\x03 \x01(\tR\flastSearched2J\n" +
 	"\bSearches\x12>\n" +
-	"\aGetTopN\x12\x18.searches.GetTopNRequest\x1a\x19.searches.GetTopNResponseB8Z6github.com/middelmatigheid/wb-top-searches/proto;protob\x06proto3"
+	"\aGetTopN\x12\x18.searches.GetTopNRequest\x1a\x19.searches.GetTopNResponseB8Z6github.com/middelmatigheid/top-searches/proto;protob\x06proto3"
 
 var (
 	file_proto_searches_proto_rawDescOnce sync.Once
