@@ -236,7 +236,7 @@ cd top-searches
 
 ## 3. Specify configuration
 
-Specify configuration in config.yaml files or environment. Take notes, that the producer has separate config.yaml
+Specify configuration in config.yaml files or docker-compose.yml environment. Take notes, that the producer has separate config.yaml
 
 Environment configuration
 
