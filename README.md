@@ -289,15 +289,6 @@ Stops all docker containers
 docker stop $(docker ps -q)
 ```
 
-### Deleting the containers
-
-Be careful using the commands below because it will delete all docker containers and volumes
-
-```bash
-docker system prune -a --volumes
-docker volume prune -a -f
-```
-
 ### 5. The service is running
 
 ---
