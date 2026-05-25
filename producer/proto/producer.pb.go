@@ -148,7 +148,7 @@ const file_proto_producer_proto_rawDesc = "" +
 	"\amessage\x18\x02 \x01(\tR\amessage2S\n" +
 	"\bProducer\x12G\n" +
 	"\n" +
-	"SendSearch\x12\x1b.producer.SendSearchRequest\x1a\x1c.producer.SendSearchResponseB8Z6github.com/middelmatigheid/wb-top-searches/proto;protob\x06proto3"
+	"SendSearch\x12\x1b.producer.SendSearchRequest\x1a\x1c.producer.SendSearchResponseB8Z6github.com/middelmatigheid/top-searches/proto;protob\x06proto3"
 
 var (
 	file_proto_producer_proto_rawDescOnce sync.Once
