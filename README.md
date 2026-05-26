@@ -33,7 +33,7 @@ one handpoint just to send searches to a broker. You can switch on the auto send
 
 The payload for the broker
 
-```
+```json
 {
   "search": "phone",
   "user": "198.51.100.14",
