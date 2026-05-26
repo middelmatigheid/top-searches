@@ -6,7 +6,7 @@
 [![Grafana](https://img.shields.io/badge/Grafana-621?logo=grafana)](https://grafana.com/)
 [![Docker](https://img.shields.io/badge/Docker-purple?logo=docker)](https://www.docker.com/)
 [![Swagger](https://img.shields.io/badge/Swagger-191?logo=swagger)](https://swagger.io/)
-[![Kafka](https://img.shields.io/badge/Kafka-white)](https://kafka.apache.org/)
+[![Kafka](https://img.shields.io/badge/Kafka-white?logo=apachekafka)](https://kafka.apache.org/)
 [![gRPC](https://img.shields.io/badge/gRPC-white)](https://grpc.io/)
 [![REST_API](https://img.shields.io/badge/REST_API-white)](https://en.wikipedia.org/wiki/REST)
 
